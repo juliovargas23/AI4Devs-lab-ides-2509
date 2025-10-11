@@ -18,3 +18,73 @@ model User {
   email String  @unique
   name  String?
 }
+
+// Candidate Management Models
+
+model Candidate {
+  id              String           @id @default(uuid())
+  firstName       String
+  lastName        String
+  email           String           @unique
+  phone           String?
+  address         String?
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  
+  educations      Education[]
+  workExperiences WorkExperience[]
+  resume          Resume?
+  
+  @@index([email])
+  @@map("candidates")
+}
+
+model Education {
+  id            String    @id @default(uuid())
+  candidateId   String
+  institution   String
+  degree        String
+  fieldOfStudy  String?
+  startDate     DateTime
+  endDate       DateTime?
+  description   String?   @db.Text
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  candidate     Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  
+  @@index([candidateId])
+  @@map("educations")
+}
+
+model WorkExperience {
+  id          String    @id @default(uuid())
+  candidateId String
+  company     String
+  position    String
+  description String?   @db.Text
+  startDate   DateTime
+  endDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  
+  candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  
+  @@index([candidateId])
+  @@map("work_experiences")
+}
+
+model Resume {
+  id          String   @id @default(uuid())
+  candidateId String   @unique
+  fileName    String
+  filePath    String
+  fileSize    Int
+  mimeType    String
+  uploadedAt  DateTime @default(now())
+  
+  candidate   Candidate @relation(fields: [candidateId], references: [id], onDelete: Cascade)
+  
+  @@index([candidateId])
+  @@map("resumes")
+}
