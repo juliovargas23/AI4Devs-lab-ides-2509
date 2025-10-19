@@ -1,0 +1,26 @@
+---
+globs: frontend/**
+description: Frontend architecture, patterns and conventions
+---
+# Frontend Architecture
+
+## Structure
+- Entry: [frontend/src/index.tsx](mdc:frontend/src/index.tsx)
+- App shell: [frontend/src/App.tsx](mdc:frontend/src/App.tsx)
+- Components: [frontend/src/components](mdc:frontend/src/components)
+- Hooks: [frontend/src/hooks](mdc:frontend/src/hooks)
+- API services: [frontend/src/services](mdc:frontend/src/services)
+- Types: [frontend/src/types](mdc:frontend/src/types)
+- Styles: [frontend/src/styles](mdc:frontend/src/styles)
+
+## Rules
+- Keep components presentational; business logic in hooks/services.
+- Use `types` for API contracts shared with backend DTOs.
+- Debounce user input in search ([frontend/src/hooks/useDebounce.ts](mdc:frontend/src/hooks/useDebounce.ts)).
+- Keep API calls centralized (e.g., [frontend/src/services/candidateApi.ts](mdc:frontend/src/services/candidateApi.ts)).
+- Prefer controlled components for forms; validate via [frontend/src/utils/formValidator.ts](mdc:frontend/src/utils/formValidator.ts).
+
+## Testing
+- Component tests under [frontend/src/tests/components](mdc:frontend/src/tests/components)
+- App-level tests in [frontend/src/tests/App.test.tsx](mdc:frontend/src/tests/App.test.tsx)
+

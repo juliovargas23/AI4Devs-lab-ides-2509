@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { PrismaCandidateRepository } from './infrastructure/repositories/PrismaCandidateRepository';
 import { AddCandidateUseCase } from './application/use-cases/AddCandidateUseCase';
+import { GetCandidatesUseCase } from './application/use-cases/GetCandidatesUseCase';
 import { CandidateController } from './presentation/controllers/CandidateController';
 import { createCandidateRoutes } from './presentation/routes/candidateRoutes';
 
@@ -24,7 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 // Dependency Injection
 const candidateRepository = new PrismaCandidateRepository(prisma);
 const addCandidateUseCase = new AddCandidateUseCase(candidateRepository);
-const candidateController = new CandidateController(addCandidateUseCase);
+const getCandidatesUseCase = new GetCandidatesUseCase(candidateRepository);
+const candidateController = new CandidateController(addCandidateUseCase, getCandidatesUseCase);
 
 // Routes
 app.get('/', (req, res) => {

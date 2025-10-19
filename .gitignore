@@ -27,3 +27,7 @@ yarn-error.log*
 
 # .env
 
+# Uploaded files
+**/uploads/resumes/
+backend/uploads/resumes/*
+!backend/uploads/resumes/.gitkeep

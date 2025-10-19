@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FormField from './FormField';
 import FileUpload from './FileUpload';
 import { candidateApi } from '../services/candidateApi';
@@ -7,6 +8,7 @@ import { CandidateFormData, Education, WorkExperience, ValidationError } from '.
 import '../styles/AddCandidateForm.css';
 
 const AddCandidateForm: React.FC = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<CandidateFormData>({
     firstName: '',
     lastName: '',
@@ -134,18 +136,10 @@ const AddCandidateForm: React.FC = () => {
       
       if (response.success) {
         setSubmitSuccess(true);
-        // Reset form
-        setFormData({
-          firstName: '',
-          lastName: '',
-          email: '',
-          phone: '',
-          address: '',
-          educations: [],
-          workExperiences: [],
-          resume: undefined,
-        });
-        setValidationErrors({});
+        // Redirect to candidate list after 1.5 seconds
+        setTimeout(() => {
+          navigate('/candidates');
+        }, 1500);
       } else {
         setSubmitError(response.error?.message || 'Failed to add candidate');
         if (response.error?.field) {
@@ -161,11 +155,21 @@ const AddCandidateForm: React.FC = () => {
 
   return (
     <div className="add-candidate-form">
-      <h1 className="add-candidate-form__title">Add New Candidate</h1>
+      <div className="add-candidate-form__header">
+        <button
+          type="button"
+          className="add-candidate-form__back-button"
+          onClick={() => navigate('/candidates')}
+          aria-label="Back to candidate list"
+        >
+          ← Back to List
+        </button>
+        <h1 className="add-candidate-form__title">Add New Candidate</h1>
+      </div>
       
       {submitSuccess && (
         <div className="add-candidate-form__success">
-          Candidate added successfully!
+          Candidate added successfully! Redirecting to list...
         </div>
       )}
       

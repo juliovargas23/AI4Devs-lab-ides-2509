@@ -1,0 +1,17 @@
+---
+globs: *.ts,*.tsx
+description: TypeScript and React TypeScript coding conventions
+---
+# TypeScript/TSX Conventions
+
+- Prefer explicit function signatures and exported API types; avoid `any`.
+- Use meaningful, descriptive names (no 1–2 letter vars). Prefer full words.
+- Use early returns; avoid deep nesting and unnecessary try/catch.
+- Keep controllers thin; move business logic to use-cases.
+- Domain code must not import infrastructure (enforce clean architecture boundaries).
+- Keep comments minimal and insightful; avoid obvious comments.
+- Use multi-line formatting over dense one-liners; wrap long lines.
+- Match existing project formatting; do not reformat unrelated code.
+- Frontend: keep presentational components pure; fetch in hooks/services.
+- Backend: DTOs for IO boundaries; value-objects encapsulate invariants.
+

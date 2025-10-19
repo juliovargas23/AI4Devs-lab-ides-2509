@@ -1,5 +1,11 @@
 import { API_BASE_URL } from '../config/constants';
-import { CandidateFormData, CandidateResponse, ApiResponse } from '../types/candidate';
+import { 
+  CandidateFormData, 
+  CandidateResponse, 
+  ApiResponse, 
+  CandidateListResponse, 
+  GetCandidatesParams 
+} from '../types/candidate';
 
 class CandidateApiService {
   private baseUrl: string;
@@ -65,6 +71,59 @@ class CandidateApiService {
       };
     } catch (error) {
       console.error('Error adding candidate:', error);
+      return {
+        success: false,
+        error: {
+          type: 'NETWORK_ERROR',
+          message: error instanceof Error ? error.message : 'Network error occurred',
+        },
+      };
+    }
+  }
+
+  async getCandidates(params?: GetCandidatesParams): Promise<ApiResponse<CandidateListResponse>> {
+    try {
+      const queryParams = new URLSearchParams();
+      
+      if (params?.page) {
+        queryParams.append('page', params.page.toString());
+      }
+      if (params?.limit) {
+        queryParams.append('limit', params.limit.toString());
+      }
+      if (params?.search) {
+        queryParams.append('search', params.search);
+      }
+      if (params?.sortBy) {
+        queryParams.append('sortBy', params.sortBy);
+      }
+      if (params?.sortOrder) {
+        queryParams.append('sortOrder', params.sortOrder);
+      }
+
+      const url = `${this.baseUrl}/candidates${queryParams.toString() ? '?' + queryParams.toString() : ''}`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      if (!response.ok) {
+        return {
+          success: false,
+          error: {
+            type: data.error?.type || 'API_ERROR',
+            message: data.error?.message || 'Failed to fetch candidates',
+          },
+        };
+      }
+
+      return {
+        success: true,
+        data: {
+          data: data.data,
+          pagination: data.pagination,
+        },
+      };
+    } catch (error) {
+      console.error('Error fetching candidates:', error);
       return {
         success: false,
         error: {

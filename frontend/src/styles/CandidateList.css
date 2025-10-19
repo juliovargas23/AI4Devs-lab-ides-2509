@@ -1,0 +1,138 @@
+.candidate-list-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.candidate-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.candidate-list-title-section {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.candidate-list-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0;
+}
+
+.candidate-list-total {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 400;
+}
+
+.candidate-list-add-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.candidate-list-add-button:hover {
+  background-color: #0056b3;
+}
+
+.candidate-list-add-button:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+.candidate-list-error {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  color: #721c24;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.candidate-list-retry-button {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #721c24;
+  background-color: white;
+  border: 1px solid #721c24;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.candidate-list-retry-button:hover {
+  background-color: #721c24;
+  color: white;
+}
+
+/* Desktop table view - show on larger screens */
+.candidate-list-desktop {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .candidate-list-desktop {
+    display: block;
+  }
+}
+
+/* Mobile card view - show on smaller screens */
+.candidate-list-mobile {
+  display: block;
+}
+
+@media (min-width: 768px) {
+  .candidate-list-mobile {
+    display: none;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .candidate-list-container {
+    padding: 1rem;
+  }
+
+  .candidate-list-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .candidate-list-title {
+    font-size: 1.5rem;
+  }
+
+  .candidate-list-total {
+    font-size: 0.875rem;
+  }
+
+  .candidate-list-add-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .candidate-list-title {
+    font-size: 1.25rem;
+  }
+}

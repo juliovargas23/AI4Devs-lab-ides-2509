@@ -1,0 +1,23 @@
+---
+description: Testing conventions for backend and frontend
+---
+# Testing Conventions
+
+## Backend (Jest)
+- Tests live under [backend/src/tests](mdc:backend/src/tests) and mirror layer intent:
+  - Domain: [backend/src/tests/domain](mdc:backend/src/tests/domain)
+  - Integration: [backend/src/tests/integration](mdc:backend/src/tests/integration)
+  - E2E: [backend/src/tests/e2e](mdc:backend/src/tests/e2e)
+- Use test DB setup from [backend/src/tests/database](mdc:backend/src/tests/database) for integration/e2e.
+- Prefer testing use-cases via public interfaces; mock repositories when unit testing.
+
+## Frontend (Jest + RTL)
+- Component tests under [frontend/src/tests/components](mdc:frontend/src/tests/components)
+- App-level tests in [frontend/src/tests/App.test.tsx](mdc:frontend/src/tests/App.test.tsx)
+- Use React Testing Library queries; avoid implementation details.
+
+## Naming & Practices
+- Name files `*.test.ts` or `*.test.tsx` alongside or in `tests/`.
+- Keep tests deterministic; avoid real network and rely on mocks except in e2e.
+- Arrange-Act-Assert structure; prefer high-signal assertions.
+

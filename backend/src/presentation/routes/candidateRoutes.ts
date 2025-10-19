@@ -14,5 +14,17 @@ export function createCandidateRoutes(controller: CandidateController): Router {
    */
   router.post('/', upload.single('resume'), controller.addCandidate);
 
+  /**
+   * @route   GET /api/candidates
+   * @desc    Get list of candidates with pagination and search
+   * @access  Public
+   * @query   page - Page number (default: 1)
+   * @query   limit - Items per page (default: 20, max: 100)
+   * @query   search - Search by name or email
+   * @query   sortBy - Sort field: createdAt | firstName | lastName (default: createdAt)
+   * @query   sortOrder - Sort order: asc | desc (default: desc)
+   */
+  router.get('/', controller.getCandidates);
+
   return router;
 }

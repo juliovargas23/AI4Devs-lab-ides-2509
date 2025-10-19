@@ -1,0 +1,36 @@
+---
+globs: backend/**
+description: Backend architecture, layering and conventions
+---
+# Backend Architecture
+
+## Layers
+- Domain: entities, value-objects, repository interfaces
+  - [backend/src/domain/entities](mdc:backend/src/domain/entities)
+  - [backend/src/domain/value-objects](mdc:backend/src/domain/value-objects)
+  - [backend/src/domain/repositories](mdc:backend/src/domain/repositories)
+- Application: use-cases and DTOs
+  - [backend/src/application/use-cases](mdc:backend/src/application/use-cases)
+  - [backend/src/application/dtos](mdc:backend/src/application/dtos)
+- Infrastructure: Prisma repositories and external services
+  - [backend/src/infrastructure/repositories](mdc:backend/src/infrastructure/repositories)
+- Presentation: controllers and routes
+  - [backend/src/presentation/controllers](mdc:backend/src/presentation/controllers)
+  - [backend/src/presentation/routes](mdc:backend/src/presentation/routes)
+
+## Rules
+- Domain is independent of application/infrastructure.
+- Use-cases orchestrate logic; controllers perform validation and mapping only.
+- All DB access goes through repository implementations in infrastructure.
+- Input/output use DTOs; validate with validators (e.g., [backend/src/application/validators](mdc:backend/src/application/validators)).
+
+## Prisma
+- Schema at [backend/prisma/schema.prisma](mdc:backend/prisma/schema.prisma)
+- Migrations in [backend/prisma/migrations](mdc:backend/prisma/migrations)
+
+## Testing
+- Unit: domain and application under [backend/src/tests/domain](mdc:backend/src/tests/domain)
+- Integration: repositories/services under [backend/src/tests/integration](mdc:backend/src/tests/integration)
+- E2E: HTTP routes under [backend/src/tests/e2e](mdc:backend/src/tests/e2e)
+  - Test DB setup in [backend/src/tests/database](mdc:backend/src/tests/database)
+

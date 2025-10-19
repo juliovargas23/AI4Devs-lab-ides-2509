@@ -1,0 +1,40 @@
+---
+alwaysApply: true
+---
+# Repository Structure Guide
+
+This monorepo contains a backend (Node/TypeScript + Prisma) and a frontend (React + TypeScript).
+
+## Entrypoints
+- Backend entry: [backend/src/index.ts](mdc:backend/src/index.ts)
+- Frontend entry: [frontend/src/index.tsx](mdc:frontend/src/index.tsx)
+
+## Backend Highlights
+- Domain-driven layering under `backend/src`:
+  - Entities: [backend/src/domain/entities](mdc:backend/src/domain/entities)
+  - Value Objects: [backend/src/domain/value-objects](mdc:backend/src/domain/value-objects)
+  - Repositories: [backend/src/domain/repositories](mdc:backend/src/domain/repositories)
+  - Use Cases: [backend/src/application/use-cases](mdc:backend/src/application/use-cases)
+  - DTOs: [backend/src/application/dtos](mdc:backend/src/application/dtos)
+  - Controllers/Routes: [backend/src/presentation](mdc:backend/src/presentation)
+  - Infrastructure (Prisma): [backend/src/infrastructure](mdc:backend/src/infrastructure)
+- Database schema: [backend/prisma/schema.prisma](mdc:backend/prisma/schema.prisma)
+- Migrations: [backend/prisma/migrations](mdc:backend/prisma/migrations)
+- Tests: [backend/src/tests](mdc:backend/src/tests) and compiled JS in [backend/dist/tests](mdc:backend/dist/tests)
+
+## Frontend Highlights
+- React app with components in [frontend/src/components](mdc:frontend/src/components)
+- Hooks in [frontend/src/hooks](mdc:frontend/src/hooks)
+- API service: [frontend/src/services/candidateApi.ts](mdc:frontend/src/services/candidateApi.ts)
+- Types: [frontend/src/types](mdc:frontend/src/types)
+- Styles: [frontend/src/styles](mdc:frontend/src/styles)
+- Tests: [frontend/src/tests](mdc:frontend/src/tests)
+
+## Documentation
+- Project docs live under [docs](mdc:docs), including API specs, architecture, and task summaries.
+
+## Conventions
+- Keep backend feature logic in use-cases; controllers remain thin.
+- Reuse DTOs between controller input/output and use-cases.
+- Do not import infrastructure from domain/application layers.
+

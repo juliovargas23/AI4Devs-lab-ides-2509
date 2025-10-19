@@ -23,10 +23,17 @@ export interface ICandidateRepository {
   findByEmail(email: string): Promise<Candidate | null>;
 
   /**
-   * Finds all candidates
-   * @returns Array of all candidates
+   * Finds all candidates with pagination and search
+   * @param options Query options including pagination, search, and sorting
+   * @returns Paginated array of candidates and total count
    */
-  findAll(): Promise<Candidate[]>;
+  findAll(options?: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    sortBy?: 'createdAt' | 'firstName' | 'lastName';
+    sortOrder?: 'asc' | 'desc';
+  }): Promise<{ candidates: Candidate[]; total: number }>;
 
   /**
    * Updates an existing candidate

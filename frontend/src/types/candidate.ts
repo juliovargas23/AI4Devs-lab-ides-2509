@@ -62,3 +62,37 @@ export interface ValidationError {
   field: string;
   message: string;
 }
+
+// Candidate list types
+export interface CandidateListItem {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone?: string;
+  currentPosition?: string;
+  resumeUrl?: string;
+  createdAt: string;
+  educationCount: number;
+  experienceCount: number;
+}
+
+export interface PaginationData {
+  page: number;
+  limit: number;
+  total: number;
+  totalPages: number;
+}
+
+export interface CandidateListResponse {
+  data: CandidateListItem[];
+  pagination: PaginationData;
+}
+
+export interface GetCandidatesParams {
+  page?: number;
+  limit?: number;
+  search?: string;
+  sortBy?: 'createdAt' | 'firstName' | 'lastName';
+  sortOrder?: 'asc' | 'desc';
+}

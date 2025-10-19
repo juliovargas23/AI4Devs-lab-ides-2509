@@ -77,19 +77,48 @@ export class PrismaCandidateRepository implements ICandidateRepository {
     return data ? this.toDomain(data) : null;
   }
 
-  async findAll(): Promise<Candidate[]> {
+  async findAll(options?: {
+    page?: number;
+    limit?: number;
+    search?: string;
+    sortBy?: 'createdAt' | 'firstName' | 'lastName';
+    sortOrder?: 'asc' | 'desc';
+  }): Promise<{ candidates: Candidate[]; total: number }> {
+    const page = options?.page || 1;
+    const limit = options?.limit || 20;
+    const skip = (page - 1) * limit;
+    const sortBy = options?.sortBy || 'createdAt';
+    const sortOrder = options?.sortOrder || 'desc';
+
+    // Build search filter
+    const where = options?.search ? {
+      OR: [
+        { firstName: { contains: options.search, mode: 'insensitive' as const } },
+        { lastName: { contains: options.search, mode: 'insensitive' as const } },
+        { email: { contains: options.search, mode: 'insensitive' as const } }
+      ]
+    } : {};
+
+    // Get total count for pagination
+    const total = await this.prisma.candidate.count({ where });
+
+    // Get paginated results
     const data = await this.prisma.candidate.findMany({
+      where,
       include: {
         educations: true,
         workExperiences: true,
         resume: true
       },
       orderBy: {
-        createdAt: 'desc'
-      }
+        [sortBy]: sortOrder
+      },
+      skip,
+      take: limit
     });
 
-    return data.map(item => this.toDomain(item));
+    const candidates = data.map(item => this.toDomain(item));
+    return { candidates, total };
   }
 
   async update(candidate: Candidate): Promise<Candidate> {

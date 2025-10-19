@@ -1,0 +1,109 @@
+.candidate-table-container {
+  overflow-x: auto;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+}
+
+.candidate-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.candidate-table thead {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.candidate-table th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.candidate-table tbody tr {
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.2s ease;
+}
+
+.candidate-table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.candidate-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.candidate-table td {
+  padding: 1rem;
+  color: #666;
+}
+
+.candidate-table-name {
+  color: #333;
+  font-weight: 500;
+}
+
+.candidate-table-email,
+.candidate-table-phone {
+  color: #007bff;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.candidate-table-email:hover,
+.candidate-table-phone:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.candidate-table-empty {
+  color: #ccc;
+}
+
+.candidate-table-count {
+  text-align: center;
+  font-weight: 500;
+}
+
+.candidate-table-resume {
+  text-align: center;
+  font-size: 1.125rem;
+}
+
+.candidate-table-resume-icon {
+  cursor: help;
+}
+
+.candidate-table-date {
+  white-space: nowrap;
+  color: #999;
+  font-size: 0.8125rem;
+}
+
+/* Responsive - minimum width for table */
+@media (max-width: 1200px) {
+  .candidate-table {
+    min-width: 900px;
+  }
+}
+
+@media (max-width: 768px) {
+  .candidate-table th,
+  .candidate-table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .candidate-table {
+    font-size: 0.8125rem;
+  }
+
+  .candidate-table th {
+    font-size: 0.6875rem;
+  }
+}
